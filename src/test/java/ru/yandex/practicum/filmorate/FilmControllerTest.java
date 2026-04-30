@@ -55,173 +55,200 @@ public class FilmControllerTest {
 
     @Test
     void postFilm() throws IOException, InterruptedException {
-        String testFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fi movie",
-      "releaseDate": "1999-03-31",
-      "duration": 120
-    }
-    """;
+        String testFilm =
+                "{\n" +
+                "  \"name\": \"Matrix\",\n" +
+                "  \"description\": \"Sci-fi movie\",\n" +
+                "  \"releaseDate\": \"1999-03-31\",\n" +
+                "  \"duration\": 120\n" +
+                "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
 
         assertTrue(response.body().contains("Matrix"));
     }
 
     @Test
     void postWrongFilmsName() throws IOException, InterruptedException {
-        String testFilm = """
-    {
-      "name": "",
-      "description": "Sci-fi movie",
-      "releaseDate": "1999-03-31",
-      "duration": 120
-    }
-    """;
+        String testFilm =
+                "{\n" +
+                "  \"name\": \"\",\n" +
+                "  \"description\": \"Sci-fi movie\",\n" +
+                "  \"releaseDate\": \"1999-03-31\",\n" +
+                "  \"duration\": 120\n" +
+                "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
         assertEquals(400, response.statusCode());
     }
 
     @Test
     void postWrongLengthDescription() throws IOException, InterruptedException {
         String testFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fi-Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiiiii",
-      "releaseDate": "1999-03-31",
-      "duration": 120
-    }
-    """;
+            {
+              "name": "Matrix",
+              "description": "Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fi-Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiiiii",
+              "releaseDate": "1999-03-31",
+              "duration": 120
+            }
+            """;
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
         assertEquals(400, response.statusCode());
     }
 
     @Test
     void postWrongDate() throws IOException, InterruptedException {
         String testFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fi movie",
-      "releaseDate": "1895-12-28",
-      "duration": 120
-    }
-    """;
+            {
+              "name": "Matrix",
+              "description": "Sci-fi movie",
+              "releaseDate": "1895-12-27",
+              "duration": 120
+            }
+            """;
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, response.statusCode());
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(400, response.statusCode());
     }
 
     @Test
     void postCorrectDate() throws IOException, InterruptedException {
         String testFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fi movie",
-      "releaseDate": "1895-12-27",
-      "duration": 120
-    }
-    """;
+            {
+              "name": "Matrix",
+              "description": "Sci-fi movie",
+              "releaseDate": "1895-12-28",
+              "duration": 120
+            }
+            """;
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(400, response.statusCode());
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200, response.statusCode());
     }
 
     @Test
     void postWrongDuration() throws IOException, InterruptedException {
         String testFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fi movie",
-      "releaseDate": "1999-03-31",
-      "duration": -120
-    }
-    """;
+            {
+              "name": "Matrix",
+              "description": "Sci-fi movie",
+              "releaseDate": "1999-03-31",
+              "duration": -120
+            }
+            """;
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
         assertEquals(400, response.statusCode());
     }
 
     @Test
     void postCorrectDuration() throws IOException, InterruptedException {
         String testFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fi movie",
-      "releaseDate": "1999-03-31",
-      "duration": 120
-    }
-    """;
+            {
+              "name": "Matrix",
+              "description": "Sci-fi movie",
+              "releaseDate": "1999-03-31",
+              "duration": 120
+            }
+            """;
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
         assertEquals(200, response.statusCode());
     }
 
     @Test
     void putCorrectTest() throws IOException, InterruptedException {
         String postFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fi movie",
-      "releaseDate": "1999-03-31",
-      "duration": 120
-    }
-    """;
+            {
+              "name": "Matrix",
+              "description": "Sci-fi movie",
+              "releaseDate": "1999-03-31",
+              "duration": 120
+            }
+            """;
+
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(postFilm))
                 .build();
 
-        HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
+        client.send(postRequest, HttpResponse.BodyHandlers.ofString());
+
         String putFilm = """
-    {
-      "id": 1,    
-      "name": "Matrix 2",
-      "description": "Sci-fi movie like Matrix 1",
-      "releaseDate": "1999-03-31",
-      "duration": 120
-    }
-    """;
+            {
+              "id": 1,
+              "name": "Matrix 2",
+              "description": "Sci-fi movie like Matrix 1",
+              "releaseDate": "1999-03-31",
+              "duration": 120
+            }
+            """;
+
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(putFilm))
                 .build();
-        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        HttpResponse<String> putResponse =
+                client.send(putRequest, HttpResponse.BodyHandlers.ofString());
 
         assertEquals(200, putResponse.statusCode());
         assertTrue(putResponse.body().contains("Matrix 2"));
@@ -230,37 +257,40 @@ public class FilmControllerTest {
     @Test
     void putWrongTest() throws IOException, InterruptedException {
         String postFilm = """
-    {
-      "name": "Matrix",
-      "description": "Sci-fi movie",
-      "releaseDate": "1999-03-31",
-      "duration": 120
-    }
-    """;
+            {
+              "name": "Matrix",
+              "description": "Sci-fi movie",
+              "releaseDate": "1999-03-31",
+              "duration": 120
+            }
+            """;
+
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(postFilm))
                 .build();
 
-        HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
+        client.send(postRequest, HttpResponse.BodyHandlers.ofString());
 
         String putFilm = """
-    {
-      "id": 1,
-      "name": "Matrix 2",
-      "description": "Sci-fi movie like Matrix 1",
-      "releaseDate": "1700-03-31",
-      "duration": -120
-    }
-    """;
+            {
+              "id": 1,
+              "name": "Matrix 2",
+              "description": "Sci-fi movie like Matrix 1",
+              "releaseDate": "1700-03-31",
+              "duration": -120
+            }
+            """;
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString(putFilm))
                 .build();
-        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        HttpResponse<String> putResponse =
+                client.send(putRequest, HttpResponse.BodyHandlers.ofString());
 
         assertEquals(400, putResponse.statusCode());
     }
@@ -684,6 +714,5 @@ public class FilmControllerTest {
 
         assertEquals(200, responseToTop.statusCode());
     }
-
 }
 
