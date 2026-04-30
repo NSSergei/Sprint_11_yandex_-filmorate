@@ -251,14 +251,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -268,13 +268,13 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest addFriendRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/2"))
@@ -296,14 +296,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -313,14 +313,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
 
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest addFriendRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/1"))
@@ -343,14 +343,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -360,13 +360,13 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest addFriendRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/5"))
@@ -388,13 +388,13 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -404,13 +404,13 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest addFriendRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/2"))
@@ -440,14 +440,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -457,14 +457,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
 
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest addFriendRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/2"))
@@ -495,14 +495,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -512,14 +512,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
 
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest addFriendRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/2"))
@@ -550,14 +550,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -567,14 +567,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
 
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest getRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends"))
@@ -596,14 +596,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -613,14 +613,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
 
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         HttpRequest getRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/11/friends"))
@@ -642,14 +642,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -659,14 +659,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
 
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         String testName3 =
                 "{\n" +
@@ -676,14 +676,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"2002-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_3 = HttpRequest.newBuilder()
+        HttpRequest postRequest3 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName3))
                 .build();
 
-        HttpResponse<String> postResponse_3 = client.send(postRequest_3, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_3.statusCode());
+        HttpResponse<String> postResponse3 = client.send(postRequest3, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse3.statusCode());
 
         HttpRequest add1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/3"))
@@ -722,14 +722,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1997-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_1 = HttpRequest.newBuilder()
+        HttpRequest postRequest1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName1))
                 .build();
 
-        HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_1.statusCode());
+        HttpResponse<String> postResponse1 = client.send(postRequest1, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse1.statusCode());
 
         String testName2 =
                 "{\n" +
@@ -739,14 +739,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"1980-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_2 = HttpRequest.newBuilder()
+        HttpRequest postRequest2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName2))
                 .build();
 
-        HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_2.statusCode());
+        HttpResponse<String> postResponse2 = client.send(postRequest2, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse2.statusCode());
 
         String testName3 =
                 "{\n" +
@@ -756,14 +756,14 @@ public class UserControllerTest {
                         "  \"birthday\": \"2002-12-24\"\n" +
                         "}";
 
-        HttpRequest postRequest_3 = HttpRequest.newBuilder()
+        HttpRequest postRequest3 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(testName3))
                 .build();
 
-        HttpResponse<String> postResponse_3 = client.send(postRequest_3, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, postResponse_3.statusCode());
+        HttpResponse<String> postResponse3 = client.send(postRequest3, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, postResponse3.statusCode());
 
         HttpRequest add1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users/1/friends/3"))
