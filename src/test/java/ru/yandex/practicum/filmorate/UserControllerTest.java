@@ -48,14 +48,13 @@ public class UserControllerTest {
 
     @Test
     void postUsers() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "abc",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"abc\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -69,14 +68,13 @@ public class UserControllerTest {
 
     @Test
     void postWrongUsersLogin() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24" 
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -90,14 +88,14 @@ public class UserControllerTest {
 
     @Test
     void postWrongUsersEmailIsEmpty() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -110,14 +108,14 @@ public class UserControllerTest {
 
     @Test
     void postWrongUsersEmail() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "abc.com",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24" 
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc.com\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -130,14 +128,14 @@ public class UserControllerTest {
 
     @Test
     void postWrongUsersBirthday() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "2039-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"2039-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -150,14 +148,14 @@ public class UserControllerTest {
 
     @Test
     void postCorrectUsersEmail() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -171,14 +169,13 @@ public class UserControllerTest {
 
     @Test
     void putCorrectTest() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -188,15 +185,15 @@ public class UserControllerTest {
 
         HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
 
-        String updateTestName = """
-                {
-                  "id": 1,
-                  "email": "sabc@mail.ru",
-                  "login": "ZxCCxZ",
-                  "name": "Sergei",
-                  "birthday": "1980-09-24"
-                }
-                """;
+        String updateTestName =
+                "{\n" +
+                        " \"id\": \"1\",\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"ZxCCxZ\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1980-09-24\"\n" +
+                        "}";
+
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -211,14 +208,13 @@ public class UserControllerTest {
 
     @Test
     void putWrongTest() throws IOException, InterruptedException {
-        String testName = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -226,16 +222,15 @@ public class UserControllerTest {
                 .POST(HttpRequest.BodyPublishers.ofString(testName))
                 .build();
         HttpResponse<String> postResponse = client.send(postRequest, HttpResponse.BodyHandlers.ofString());
+        String updateTestName =
+                "{\n" +
+                        " \"id\": \"1\",\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1980-09-24\"\n" +
+                        "}";
 
-        String updateTestName = """
-                {
-                  "id": 1,
-                  "email": "sabc@mail.ru",
-                  "login": "",
-                  "name": "Sergei",
-                  "birthday": "1980-09-24"
-                }
-                """;
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -246,17 +241,15 @@ public class UserControllerTest {
         assertEquals(400, putResponse.statusCode());
     }
 
-    //PUT /users/{id}/friends/{friendId} — добавление в друзья.
     @Test
     void addFriend() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -267,14 +260,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -292,19 +284,17 @@ public class UserControllerTest {
 
         HttpResponse<String> addFriendResponse = client.send(addFriendRequest, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, addFriendResponse.statusCode());
-
     }
 
     @Test
     void addWrongIdFriend() throws  IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -315,14 +305,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -346,14 +335,13 @@ public class UserControllerTest {
 
     @Test
     void addWrongUserId() throws  IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -364,14 +352,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -393,14 +380,13 @@ public class UserControllerTest {
 
     @Test
     void deleteFriend() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -410,14 +396,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -447,14 +432,13 @@ public class UserControllerTest {
 
     @Test
     void deleteSameIdFriend() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -465,14 +449,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -504,14 +487,13 @@ public class UserControllerTest {
 
     @Test
     void deleteWrongFriendId() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -522,14 +504,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -561,14 +542,13 @@ public class UserControllerTest {
 
     @Test
     void getFriends() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -579,14 +559,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -609,14 +588,13 @@ public class UserControllerTest {
 
     @Test
     void getFriendsWithWrongUser() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -627,14 +605,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -657,14 +634,13 @@ public class UserControllerTest {
 
     @Test
     void getCommonFriend() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -675,14 +651,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -693,14 +668,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_2.statusCode());
 
-        String testName3 = """
-                {
-                  "email": "JKL@mail.ru",
-                  "login": "YTIO",
-                  "name": "Nick",
-                  "birthday": "2002-12-24"
-                }
-                """;
+        String testName3 =
+                "{\n" +
+                        "  \"email\": \"JKL@mail.ru\",\n" +
+                        "  \"login\": \"YTIO\",\n" +
+                        "  \"name\": \"Nick\",\n" +
+                        "  \"birthday\": \"2002-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_3 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -740,14 +714,13 @@ public class UserControllerTest {
 
     @Test
     void getCommonUsersId() throws IOException, InterruptedException {
-        String testName1 = """
-                {
-                  "email": "sabc@mail.ru",
-                  "login": "XcX",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName1 =
+                "{\n" +
+                        "  \"email\": \"sabc@mail.ru\",\n" +
+                        "  \"login\": \"XcX\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_1 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -758,14 +731,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_1 = client.send(postRequest_1, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_1.statusCode());
 
-        String testName2 = """
-                {
-                  "email": "xxx@mail.ru",
-                  "login": "ZZZ",
-                  "name": "Alex",
-                  "birthday": "1980-12-24"
-                }
-                """;
+        String testName2 =
+                "{\n" +
+                        "  \"email\": \"xxx@mail.ru\",\n" +
+                        "  \"login\": \"ZZZ\",\n" +
+                        "  \"name\": \"Alex\",\n" +
+                        "  \"birthday\": \"1980-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_2 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
@@ -776,14 +748,13 @@ public class UserControllerTest {
         HttpResponse<String> postResponse_2 = client.send(postRequest_2, HttpResponse.BodyHandlers.ofString());
         assertEquals(200, postResponse_2.statusCode());
 
-        String testName3 = """
-                {
-                  "email": "JKL@mail.ru",
-                  "login": "YTIO",
-                  "name": "Nick",
-                  "birthday": "2002-12-24"
-                }
-                """;
+        String testName3 =
+                "{\n" +
+                        "  \"email\": \"JKL@mail.ru\",\n" +
+                        "  \"login\": \"YTIO\",\n" +
+                        "  \"name\": \"Nick\",\n" +
+                        "  \"birthday\": \"2002-12-24\"\n" +
+                        "}";
 
         HttpRequest postRequest_3 = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))

@@ -57,11 +57,11 @@ public class FilmControllerTest {
     void postFilm() throws IOException, InterruptedException {
         String testFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -79,11 +79,11 @@ public class FilmControllerTest {
     void postWrongFilmsName() throws IOException, InterruptedException {
         String testFilm =
                 "{\n" +
-                "  \"name\": \"\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -101,11 +101,11 @@ public class FilmControllerTest {
     void postWrongLengthDescription() throws IOException, InterruptedException {
         String testFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiiiii\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiiiii\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -123,11 +123,11 @@ public class FilmControllerTest {
     void postWrongDate() throws IOException, InterruptedException {
         String testFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1895-12-27\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1895-12-27\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -145,11 +145,11 @@ public class FilmControllerTest {
     void postCorrectDate() throws IOException, InterruptedException {
         String testFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1895-12-28\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1895-12-28\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -167,11 +167,11 @@ public class FilmControllerTest {
     void postWrongDuration() throws IOException, InterruptedException {
         String testFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1895-12-27\",\n" +
-                "  \"duration\": -120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1895-12-27\",\n" +
+                        "  \"duration\": -120\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -189,11 +189,11 @@ public class FilmControllerTest {
     void postCorrectDuration() throws IOException, InterruptedException {
         String testFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -211,11 +211,11 @@ public class FilmControllerTest {
     void putCorrectTest() throws IOException, InterruptedException {
         String postFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -227,12 +227,12 @@ public class FilmControllerTest {
 
         String putFilm =
                 "{\n" +
-                "  \"id\": \"1\",\n" +
-                "  \"name\": \"Matrix 2\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"id\": \"1\",\n" +
+                        "  \"name\": \"Matrix 2\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -251,11 +251,11 @@ public class FilmControllerTest {
     void putWrongTest() throws IOException, InterruptedException {
         String postFilm =
                 "{\n" +
-                "  \"name\": \"Matrix\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -267,12 +267,12 @@ public class FilmControllerTest {
 
         String putFilm =
                 "{\n" +
-                "  \"id\": \"1\",\n" +
-                "  \"name\": \"Matrix 2\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1700-03-31\",\n" +
-                "  \"duration\": -120\n" +
-                "}";
+                        "  \"id\": \"1\",\n" +
+                        "  \"name\": \"Matrix 2\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1700-03-31\",\n" +
+                        "  \"duration\": -120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -290,11 +290,11 @@ public class FilmControllerTest {
     void deleteFilm() throws IOException, InterruptedException {
         String putFilm =
                 "{\n" +
-                "  \"name\": \"Matrix 2\",\n" +
-                "  \"description\": \"Sci-fi movie\",\n" +
-                "  \"releaseDate\": \"1999-03-31\",\n" +
-                "  \"duration\": 120\n" +
-                "}";
+                        "  \"name\": \"Matrix 2\",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -327,11 +327,11 @@ public class FilmControllerTest {
     void deleteWrongIdFilm() throws IOException, InterruptedException {
         String putFilm =
                 "{\n" +
-                 "  \"name\": \"Matrix \",\n" +
-                 "  \"description\": \"Sci-fi movie\",\n" +
-                 "  \"releaseDate\": \"1999-03-31\",\n" +
-                 "  \"duration\": 120\n" +
-                 "}";
+                        "  \"name\": \"Matrix \",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -397,14 +397,13 @@ public class FilmControllerTest {
 
     @Test
     void testAddLikeToFilmWrongUser() throws IOException, InterruptedException {
-        String testFilm = """
-                {
-                  "name": "Matrix",
-                  "description": "Sci-fi movie",
-                  "releaseDate": "1999-03-31",
-                  "duration": 120
-                }
-                """;
+        String testFilm =
+                "{\n" +
+                        "  \"name\": \"Matrix \",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -413,14 +412,14 @@ public class FilmControllerTest {
                 .build();
         HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
 
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "abc",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"abc\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -443,14 +442,13 @@ public class FilmControllerTest {
 
     @Test
     void testAddLikeToInvalidFilmId() throws IOException, InterruptedException {
-        String testFilm = """
-                {
-                  "name": "Matrix",
-                  "description": "Sci-fi movie",
-                  "releaseDate": "1999-03-31",
-                  "duration": 120
-                }
-                """;
+        String testFilm =
+                "{\n" +
+                        "  \"name\": \"Matrix \",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -459,14 +457,14 @@ public class FilmControllerTest {
                 .build();
         HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
 
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "abc",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"abc\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -488,14 +486,13 @@ public class FilmControllerTest {
 
     @Test
     void deleteLike() throws IOException, InterruptedException {
-        String testFilm = """
-                {
-                  "name": "Matrix",
-                  "description": "Sci-fi movie",
-                  "releaseDate": "1999-03-31",
-                  "duration": 120
-                }
-                """;
+        String testFilm =
+                "{\n" +
+                        "  \"name\": \"Matrix \",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -504,14 +501,14 @@ public class FilmControllerTest {
                 .build();
         HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
 
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "abc",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"abc\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -542,14 +539,13 @@ public class FilmControllerTest {
 
     @Test
     void testDeleteLikeToFilmWrongUser() throws IOException, InterruptedException {
-        String testFilm = """
-                {
-                  "name": "Matrix",
-                  "description": "Sci-fi movie",
-                  "releaseDate": "1999-03-31",
-                  "duration": 120
-                }
-                """;
+        String testFilm =
+                "{\n" +
+                        "  \"name\": \"Matrix \",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -558,14 +554,14 @@ public class FilmControllerTest {
                 .build();
         HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
 
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "abc",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"abc\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -596,14 +592,13 @@ public class FilmControllerTest {
 
     @Test
     void testDeleteLikeToInvalidFilmId() throws IOException, InterruptedException {
-        String testFilm = """
-                {
-                  "name": "Matrix",
-                  "description": "Sci-fi movie",
-                  "releaseDate": "1999-03-31",
-                  "duration": 120
-                }
-                """;
+        String testFilm =
+                "{\n" +
+                        "  \"name\": \"Matrix \",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -611,15 +606,14 @@ public class FilmControllerTest {
                 .POST(HttpRequest.BodyPublishers.ofString(testFilm))
                 .build();
         HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"abc\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
 
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "abc",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -650,14 +644,13 @@ public class FilmControllerTest {
 
     @Test
     void getTopFilmsList() throws IOException, InterruptedException {
-        String testFilm = """
-                {
-                  "name": "Matrix",
-                  "description": "Sci-fi movie",
-                  "releaseDate": "1999-03-31",
-                  "duration": 120
-                }
-                """;
+        String testFilm =
+                "{\n" +
+                        "  \"name\": \"Matrix \",\n" +
+                        "  \"description\": \"Sci-fi movie\",\n" +
+                        "  \"releaseDate\": \"1999-03-31\",\n" +
+                        "  \"duration\": 120\n" +
+                        "}";
 
         HttpRequest putRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
@@ -666,14 +659,14 @@ public class FilmControllerTest {
                 .build();
         HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
 
-        String testName = """
-                {
-                  "email": "abc@mail.ru",
-                  "login": "abc",
-                  "name": "Sergei",
-                  "birthday": "1997-12-24"
-                }
-                """;
+        String testName =
+                "{\n" +
+                        "  \"email\": \"abc@mail.ru\",\n" +
+                        "  \"login\": \"abc\",\n" +
+                        "  \"name\": \"Sergei\",\n" +
+                        "  \"birthday\": \"1997-12-24\"\n" +
+                        "}";
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
