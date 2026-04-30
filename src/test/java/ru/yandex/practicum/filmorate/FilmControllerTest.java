@@ -1,7 +1,7 @@
 package ru.yandex.practicum.filmorate;
 
-
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
@@ -11,20 +11,37 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import org.junit.jupiter.api.BeforeEach;
+import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FilmControllerTest {
+
     @LocalServerPort
     private int port;
+
     HttpClient client;
+
+    @Autowired
+    private InMemoryFilmStorage inMemoryFilmStorage;
+
+    @Autowired
+    private InMemoryUserStorage inMemoryUserStorage;
+
+    @BeforeEach
+    void setUp() {
+        client = HttpClient.newHttpClient();
+        inMemoryFilmStorage.getFilmMap().clear();
+        inMemoryFilmStorage.getFilmsLikeInfoMap().clear();
+        inMemoryUserStorage.getUserMap().clear();
+    }
 
     @Test
     void getAllFilms() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .GET()
@@ -38,8 +55,6 @@ public class FilmControllerTest {
 
     @Test
     void PostFilm() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -61,8 +76,6 @@ public class FilmControllerTest {
 
     @Test
     void PostWrongFilmsName() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         String testFilm = """
                 {
                   "name": "",
@@ -79,26 +92,21 @@ public class FilmControllerTest {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(response.body());
+
         assertEquals(400, response.statusCode());
     }
 
     @Test
     void PostWrongLengthDescription() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         String testFilm = """
                 {
                   "name": "Matrix",
-                  "description": "Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fi
-                  Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fi
-                  Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-f
-                  Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fi
-                  Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fi",
+                  "description": "Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fi-Sci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiSci-fiiiii",
                   "releaseDate": "1999-03-31",
                   "duration": 120
                 }
                 """;
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
@@ -113,8 +121,6 @@ public class FilmControllerTest {
 
     @Test
     void PostWrongDate() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -135,8 +141,6 @@ public class FilmControllerTest {
 
     @Test
     void PostCorrectDate() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -156,8 +160,6 @@ public class FilmControllerTest {
 
     @Test
     void PostWrontDuration() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -177,8 +179,6 @@ public class FilmControllerTest {
 
     @Test
     void PostCorrectDuration() throws IOException, InterruptedException {
-        client = HttpClient.newHttpClient();
-
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -197,9 +197,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PutCorrectTest() throws IOException, InterruptedException{
-        client = HttpClient.newHttpClient();
-
+    void PutCorrectTest() throws IOException, InterruptedException {
         String postFilm = """
                 {
                  "name": "Matrix",
@@ -234,13 +232,10 @@ public class FilmControllerTest {
 
         assertEquals(200, putResponse.statusCode());
         assertTrue(putResponse.body().contains("Matrix 2"));
-
     }
 
     @Test
-    void PutWrongTest() throws IOException, InterruptedException{
-        client = HttpClient.newHttpClient();
-
+    void PutWrongTest() throws IOException, InterruptedException {
         String postFilm = """
                 {
                  "name": "Matrix",
@@ -275,5 +270,440 @@ public class FilmControllerTest {
 
         assertEquals(400, putResponse.statusCode());
     }
+
+    @Test
+    void deleteFilm() throws IOException, InterruptedException {
+        String putFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(putFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200, putResponse.statusCode());
+
+        HttpRequest deleteRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1"))
+                .header("Content-Type", "application/json")
+                .DELETE()
+                .build();
+        HttpResponse<String> deleteResponse = client.send(deleteRequest, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, deleteResponse.statusCode());
+
+        HttpRequest getRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .GET()
+                .build();
+        HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, getResponse.statusCode());
+        assertEquals("[]", getResponse.body());
+    }
+
+    @Test
+    void deleteWrongIdFilm() throws IOException, InterruptedException {
+        String putFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(putFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200, putResponse.statusCode());
+
+        HttpRequest deleteRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/2"))
+                .header("Content-Type", "application/json")
+                .DELETE()
+                .build();
+        HttpResponse<String> deleteResponse = client.send(deleteRequest, HttpResponse.BodyHandlers.ofString());
+        assertEquals(400, deleteResponse.statusCode());
+    }
+
+    @Test
+    void testAddLikeToFilm() throws IOException, InterruptedException {
+        String testFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        String testName = """
+                {
+                  "email": "abc@mail.ru",
+                  "login": "abc",
+                  "name": "Sergei",
+                  "birthday": "1997-12-24"
+                }
+                """;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/users"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testName))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200,response.statusCode());
+
+        HttpRequest requestToTestLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/1"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> likeResponse = client.send(requestToTestLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200,likeResponse.statusCode());
+    }
+
+    @Test
+    void  testAddLikeToFilmWrongUser() throws IOException, InterruptedException {
+        String testFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        String testName = """
+                {
+                  "email": "abc@mail.ru",
+                  "login": "abc",
+                  "name": "Sergei",
+                  "birthday": "1997-12-24"
+                }
+                """;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/users"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testName))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200,response.statusCode());
+
+        HttpRequest requestToTestLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/5/like/1"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> likeResponse = client.send(requestToTestLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(404,likeResponse.statusCode());
+
+    }
+
+    @Test
+    void  testAddLikeToInvalidFilmId() throws IOException, InterruptedException {
+        String testFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        String testName = """
+                {
+                  "email": "abc@mail.ru",
+                  "login": "abc",
+                  "name": "Sergei",
+                  "birthday": "1997-12-24"
+                }
+                """;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/users"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testName))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200,response.statusCode());
+
+        HttpRequest requestToTestLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/5"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> likeResponse = client.send(requestToTestLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(404,likeResponse.statusCode());
+    }
+
+    @Test
+    void deleteLike() throws IOException, InterruptedException {
+        String testFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        String testName = """
+                {
+                  "email": "abc@mail.ru",
+                  "login": "abc",
+                  "name": "Sergei",
+                  "birthday": "1997-12-24"
+                }
+                """;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/users"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testName))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200,response.statusCode());
+
+        HttpRequest requestToTestLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/1"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> likeResponse = client.send(requestToTestLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200,likeResponse.statusCode());
+
+        HttpRequest requestToDeleteLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/1"))
+                .header("Content-Type", "application/json")
+                .DELETE()
+                .build();
+
+        HttpResponse<String> responseToDelete = client.send(requestToDeleteLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200,responseToDelete.statusCode());
+    }
+
+    @Test
+    void testDeleteLikeToFilmWrongUser() throws IOException, InterruptedException {
+        String testFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        String testName = """
+                {
+                  "email": "abc@mail.ru",
+                  "login": "abc",
+                  "name": "Sergei",
+                  "birthday": "1997-12-24"
+                }
+                """;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/users"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testName))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200, response.statusCode());
+
+        HttpRequest requestToTestLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/1"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> likeResponse = client.send(requestToTestLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, likeResponse.statusCode());
+
+        HttpRequest requestToDeleteLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/5/like/1"))
+                .header("Content-Type", "application/json")
+                .DELETE()
+                .build();
+
+        HttpResponse<String> responseToDelete = client.send(requestToDeleteLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(404, responseToDelete.statusCode());
+    }
+
+    @Test
+    void testDeleteLikeToInvalidFilmId() throws IOException, InterruptedException {
+        String testFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        String testName = """
+                {
+                  "email": "abc@mail.ru",
+                  "login": "abc",
+                  "name": "Sergei",
+                  "birthday": "1997-12-24"
+                }
+                """;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/users"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testName))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200, response.statusCode());
+
+        HttpRequest requestToTestLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/1"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> likeResponse = client.send(requestToTestLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200, likeResponse.statusCode());
+
+        HttpRequest requestToDeleteLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/5"))
+                .header("Content-Type", "application/json")
+                .DELETE()
+                .build();
+
+        HttpResponse<String> responseToDelete = client.send(requestToDeleteLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(404, responseToDelete.statusCode());
+    }
+
+    @Test
+    void  getTopFilmsList() throws IOException, InterruptedException {
+        String testFilm = """
+                {
+                  "name": "Matrix",
+                  "description": "Sci-fi movie",
+                  "releaseDate": "1999-03-31",
+                  "duration": 120
+                }
+                """;
+
+        HttpRequest putRequest = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testFilm))
+                .build();
+        HttpResponse<String> putResponse = client.send(putRequest, HttpResponse.BodyHandlers.ofString());
+
+        String testName = """
+                {
+                  "email": "abc@mail.ru",
+                  "login": "abc",
+                  "name": "Sergei",
+                  "birthday": "1997-12-24"
+                }
+                """;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/users"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(testName))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200,response.statusCode());
+
+        HttpRequest requestToTestLike = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/1/like/1"))
+                .header("Content-Type", "application/json")
+                .PUT(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> likeResponse = client.send(requestToTestLike, HttpResponse.BodyHandlers.ofString());
+        assertEquals(200,likeResponse.statusCode());
+
+        HttpRequest requestToTop = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:" + port + "/films/popular?count=10"))
+                .GET()
+                .build();
+
+        HttpResponse<String> responseToTop =
+                client.send(requestToTop, HttpResponse.BodyHandlers.ofString());
+
+        assertEquals(200, responseToTop.statusCode());
+    }
+
 }
 
