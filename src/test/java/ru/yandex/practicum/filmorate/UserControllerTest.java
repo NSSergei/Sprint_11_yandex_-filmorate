@@ -64,12 +64,11 @@ public class UserControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertTrue(response.body().contains("Sergei"));
     }
 
     @Test
-    void PostWrongUsersLogin() throws IOException, InterruptedException {
+    void postWrongUsersLogin() throws IOException, InterruptedException {
         String testName = """
                 {
                   "email": "abc@mail.ru",
@@ -90,10 +89,10 @@ public class UserControllerTest {
     }
 
     @Test
-    void PostWrongUsersEmailIsEmpty() throws IOException, InterruptedException {
+    void postWrongUsersEmailIsEmpty() throws IOException, InterruptedException {
         String testName = """
                 {
-                  "email": "abc.com",
+                  "email": "",
                   "login": "XcX",
                   "name": "Sergei",
                   "birthday": "1997-12-24"
@@ -110,10 +109,10 @@ public class UserControllerTest {
     }
 
     @Test
-    void PostWrongUsersEmail() throws IOException, InterruptedException {
+    void postWrongUsersEmail() throws IOException, InterruptedException {
         String testName = """
                 {
-                  "email": "",
+                  "email": "abc.com",
                   "login": "XcX",
                   "name": "Sergei",
                   "birthday": "1997-12-24" 
@@ -130,7 +129,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void PostWrongUsersBirthday() throws IOException, InterruptedException {
+    void postWrongUsersBirthday() throws IOException, InterruptedException {
         String testName = """
                 {
                   "email": "",
@@ -150,7 +149,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void PostCorrectUsersEmail() throws IOException, InterruptedException {
+    void postCorrectUsersEmail() throws IOException, InterruptedException {
         String testName = """
                 {
                   "email": "sabc@mail.ru",
@@ -171,7 +170,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void PutCorrectTest() throws IOException, InterruptedException {
+    void putCorrectTest() throws IOException, InterruptedException {
         String testName = """
                 {
                   "email": "sabc@mail.ru",
@@ -211,7 +210,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void PutWrongTest() throws IOException, InterruptedException {
+    void putWrongTest() throws IOException, InterruptedException {
         String testName = """
                 {
                   "email": "sabc@mail.ru",

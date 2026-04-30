@@ -54,7 +54,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PostFilm() throws IOException, InterruptedException {
+    void postFilm() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -75,7 +75,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PostWrongFilmsName() throws IOException, InterruptedException {
+    void postWrongFilmsName() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "",
@@ -91,13 +91,11 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-
         assertEquals(400, response.statusCode());
     }
 
     @Test
-    void PostWrongLengthDescription() throws IOException, InterruptedException {
+    void postWrongLengthDescription() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -106,7 +104,6 @@ public class FilmControllerTest {
                   "duration": 120
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
@@ -114,13 +111,11 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-
         assertEquals(400, response.statusCode());
     }
 
     @Test
-    void PostWrongDate() throws IOException, InterruptedException {
+    void postWrongDate() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -129,7 +124,6 @@ public class FilmControllerTest {
                   "duration": 120
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/films"))
                 .header("Content-Type", "application/json")
@@ -140,7 +134,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PostCorrectDate() throws IOException, InterruptedException {
+    void postCorrectDate() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -159,7 +153,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PostWrontDuration() throws IOException, InterruptedException {
+    void postWrongDuration() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -178,7 +172,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PostCorrectDuration() throws IOException, InterruptedException {
+    void postCorrectDuration() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -197,7 +191,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PutCorrectTest() throws IOException, InterruptedException {
+    void putCorrectTest() throws IOException, InterruptedException {
         String postFilm = """
                 {
                  "name": "Matrix",
@@ -235,7 +229,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void PutWrongTest() throws IOException, InterruptedException {
+    void putWrongTest() throws IOException, InterruptedException {
         String postFilm = """
                 {
                  "name": "Matrix",
@@ -364,7 +358,6 @@ public class FilmControllerTest {
                   "birthday": "1997-12-24"
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -372,7 +365,6 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200,response.statusCode());
 
         HttpRequest requestToTestLike = HttpRequest.newBuilder()
@@ -386,7 +378,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void  testAddLikeToFilmWrongUser() throws IOException, InterruptedException {
+    void testAddLikeToFilmWrongUser() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -411,7 +403,6 @@ public class FilmControllerTest {
                   "birthday": "1997-12-24"
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -419,7 +410,6 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200,response.statusCode());
 
         HttpRequest requestToTestLike = HttpRequest.newBuilder()
@@ -434,7 +424,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void  testAddLikeToInvalidFilmId() throws IOException, InterruptedException {
+    void testAddLikeToInvalidFilmId() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -459,7 +449,6 @@ public class FilmControllerTest {
                   "birthday": "1997-12-24"
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -467,7 +456,6 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200,response.statusCode());
 
         HttpRequest requestToTestLike = HttpRequest.newBuilder()
@@ -506,7 +494,6 @@ public class FilmControllerTest {
                   "birthday": "1997-12-24"
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -514,7 +501,6 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200,response.statusCode());
 
         HttpRequest requestToTestLike = HttpRequest.newBuilder()
@@ -562,7 +548,6 @@ public class FilmControllerTest {
                   "birthday": "1997-12-24"
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -570,7 +555,6 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200, response.statusCode());
 
         HttpRequest requestToTestLike = HttpRequest.newBuilder()
@@ -618,7 +602,6 @@ public class FilmControllerTest {
                   "birthday": "1997-12-24"
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -626,7 +609,6 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200, response.statusCode());
 
         HttpRequest requestToTestLike = HttpRequest.newBuilder()
@@ -649,7 +631,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void  getTopFilmsList() throws IOException, InterruptedException {
+    void getTopFilmsList() throws IOException, InterruptedException {
         String testFilm = """
                 {
                   "name": "Matrix",
@@ -674,7 +656,6 @@ public class FilmControllerTest {
                   "birthday": "1997-12-24"
                 }
                 """;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:" + port + "/users"))
                 .header("Content-Type", "application/json")
@@ -682,7 +663,6 @@ public class FilmControllerTest {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
         assertEquals(200,response.statusCode());
 
         HttpRequest requestToTestLike = HttpRequest.newBuilder()
