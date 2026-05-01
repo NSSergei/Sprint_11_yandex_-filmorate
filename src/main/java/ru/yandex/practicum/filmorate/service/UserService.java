@@ -6,21 +6,21 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
+
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Slf4j
 @Service
 public class UserService {
-    private final InMemoryUserStorage inMemoryUserStorage;
+    private final UserStorage userStorage;
 
-    public UserService(InMemoryUserStorage inMemoryUserStorage) {
-        this.inMemoryUserStorage = inMemoryUserStorage;
+    public UserService(UserStorage userStorage) {
+        this.userStorage = userStorage;
     }
 
     public User addUser(User user) {
@@ -46,15 +46,15 @@ public class UserService {
 
         log.info("User added with id {} and login {}",user.getId(), user.getLogin());
 
-        inMemoryUserStorage.addUser(user);
+        userStorage.addUser(user);
         return user;
     }
 
     public void deleteUser(long id) {
-        if (!inMemoryUserStorage.getUserMap().containsKey(id)) {
+        if (userStorage.getUserById(id).isEmpty()) {
             throw new NotFoundException("Пользователь с id " + id + " не найден");
         }
-        inMemoryUserStorage.deleteUser(id);
+        userStorage.deleteUser(id);
     }
 
     public User changeUserInfo(User user) {
@@ -63,23 +63,13 @@ public class UserService {
             throw new ValidationException("Id отсутствие");
         }
 
-        if (!inMemoryUserStorage.getUserMap().containsKey(user.getId())) {
+        if (userStorage.getUserById(user.getId()).isEmpty()) {
             log.warn("User with id {} not found", user.getId());
             throw new NotFoundException("Пользователь с id " + user.getId() + " не найден");
         }
 
-        if (user.getLogin() == null || user.getLogin().isBlank() || user.getLogin().contains(" ")) {
-            log.warn("Invalid login: {}", user.getLogin());
-            throw new ValidationException("Логин не может быть пустым");
-        }
-
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
-        }
-
-        if (user.getEmail() == null || user.getEmail().isBlank() || !user.getEmail().contains("@")) {
-            log.warn("Invalid email: {}", user.getEmail());
-            throw new ValidationException("Ошибка формата электронной почты / почта не должна быть пустой");
         }
 
         if (user.getBirthday() != null && user.getBirthday().isAfter(LocalDate.now())) {
@@ -88,121 +78,92 @@ public class UserService {
         }
 
         log.info("User updated: id= {}, login= {}", user.getId(), user.getLogin());
-        return inMemoryUserStorage.updateUser(user);
+        return userStorage.updateUser(user);
     }
 
     public Collection<User> getAllUsers() {
-        log.info("Request to get all users. Total users: {}", inMemoryUserStorage.getUserMap().size());
-        return inMemoryUserStorage.getUsers();
+        log.info("Request to get all users. Total users: {}", userStorage.getUsers().size());
+        return userStorage.getUsers();
     }
 
-    public void addFriend(long userId, long newFriendId) {
-        log.info("Request to add new Friend. User id {}, Friend id: {}", userId, newFriendId);
-
-        if (!inMemoryUserStorage.getUserMap().containsKey(userId)) {
-            log.warn("Invalid user id: {}", userId);
-            throw new NotFoundException("Пользователь с userId " + userId + " не найден");
-        }
-
-        if (!inMemoryUserStorage.getUserMap().containsKey(newFriendId)) {
-            log.warn("Invalid friend id: {}", newFriendId);
-            throw new NotFoundException("Пользователь с newFriendId " + newFriendId + " не найден");
-        }
-
-        if (userId == newFriendId) {
+    public void addFriend(long userId, long friendId) {
+        log.info("Request to add new Friend. User id {}, Friend id: {}", userId, friendId);
+        if (userId == friendId) {
             log.warn("Пользователь не может добавить самого себя id пользователя{}, id друга{}", userId,
-                    newFriendId);
+                    friendId);
             throw new ValidationException("Нельзя добавить самого себя в друзья");
         }
 
-        if (!inMemoryUserStorage.getFriendsInfoMap().containsKey(userId)) {
-            log.info("Add new HashSet<>()");
-            inMemoryUserStorage.getFriendsInfoMap().put(userId, new HashSet<>());
-        }
+        User user = userStorage.getUserById(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с userId " + userId + " не найден"));
 
-        log.info("Add new friend,for userId id {}, add newFriendId id{}", userId, newFriendId);
-        inMemoryUserStorage.getFriendsInfoMap().get(userId).add(newFriendId);
+        User friend = userStorage.getUserById(friendId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с friendId " + friendId + " не найден"));
 
-        log.info("Add new friend,for newFriendId id {}, add userId id{}", newFriendId, userId);
-        inMemoryUserStorage.getFriendsInfoMap().get(newFriendId).add(userId);
+        log.info("Add new friend,for userId id {}, add newFriendId id{}", userId, friendId);
+        user.getFriends().add(friendId);
+
+        log.info("Add new friend,for friendId id {}, add userId id{}", friendId, userId);
+        friend.getFriends().add(userId);
 
     }
 
-    public void deleteFriend(long userId, long newFriendId) {
-        log.info("Request to delete Friend. User id {}, Friend id: {}", userId, newFriendId);
-
-        if (!inMemoryUserStorage.getUserMap().containsKey(userId)) {
-            log.warn("Invalid user id: {}", userId);
-            throw new NotFoundException("Пользователь с userId " + userId + " не найден");
-        }
-
-        if (!inMemoryUserStorage.getUserMap().containsKey(newFriendId)) {
-            log.warn("Invalid friend id: {}", newFriendId);
-            throw new NotFoundException("Пользователь с newFriendId " + newFriendId + " не найден");
-        }
-
-        if (userId == newFriendId) {
-            log.warn("Нельзя удалить себя из своих друзей: id пользователя{}, id друга{}", userId, newFriendId);
+    public void deleteFriend(long userId, long friendId) {
+        log.info("Request to delete Friend. User id {}, Friend id: {}", userId, friendId);
+        if (userId == friendId) {
+            log.warn("Нельзя удалить себя из своих друзей: id пользователя{}, id друга{}", userId, friendId);
             throw new ValidationException("Нельзя удалить самого себя из друзей");
         }
 
-        log.info("Delete friend,for userId id{}, add newFriendId id{}", userId, newFriendId);
-        inMemoryUserStorage.getFriendsInfoMap().get(userId).remove(newFriendId);
+        User user = userStorage.getUserById(userId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с userId " + userId + " не найден"));
+        User friend = userStorage.getUserById(friendId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с friendId " + friendId + " не найден"));
 
-        log.info("Add new Friend,for newFriendId id{}, add userId id{}", newFriendId, userId);
-        inMemoryUserStorage.getFriendsInfoMap().get(newFriendId).remove(userId);
+        log.info("Delete friend, userId id{}, add friendId id{}", userId, friendId);
+        user.getFriends().remove(friendId);
+
+        log.info("Delete friend, friendId id{}, add userId id{}", friendId, userId);
+        friend.getFriends().remove(userId);
     }
 
     public Collection<User> getAllFriends(long id) {
         log.info("Start getALLFriends for user: id{}", id);
 
-        if (!inMemoryUserStorage.getUserMap().containsKey(id)) {
-            log.warn("User not found in UserMap");
-            throw new NotFoundException("id not found in userMap");
-        }
+        User user = userStorage.getUserById(id)
+                .orElseThrow(() -> new NotFoundException("id not found in userMap"));
 
         ArrayList<User> allFriends = new ArrayList<>();
-        Set<Long> friendsId = inMemoryUserStorage.getFriendsInfoMap().getOrDefault(id, new HashSet<>());
 
         log.info("Start iteration.");
-        for (Long friends : friendsId) {
-            User friend = inMemoryUserStorage.getUserMap().get(friends);
-            if (friend != null) {
-                allFriends.add(friend);
-            }
+        for (Long friend : user.getFriends()) {
+            userStorage.getUserById(friend)
+                    .ifPresent(allFriends::add);
         }
 
         log.info("return friends List");
         return  allFriends;
     }
 
-    public Collection<User> checkMutualFriends(long firstUser, long secondUser) {
-        log.info("Start checkMutualFriends: firstUserId{}, secondUserId{}", firstUser, secondUser);
+    public Collection<User> checkMutualFriends(long firstId, long secondId) {
+        log.info("Start checkMutualFriends: firstId{}, secondId{}", firstId, secondId);
+        User firstUser = userStorage.getUserById(firstId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с firstUser " + firstId + " не найден"));
 
-        if (!inMemoryUserStorage.getUserMap().containsKey(firstUser)) {
-            log.warn("Invalid user id: {}", firstUser);
-            throw new NotFoundException("Пользователь с firstUser " + firstUser + " не найден");
-        }
-
-        if (!inMemoryUserStorage.getUserMap().containsKey(secondUser)) {
-            log.warn("Invalid user id: {}", secondUser);
-            throw new ValidationException("Second id is not found in userMap");
-        }
+        User secondUser = userStorage.getUserById(secondId)
+                .orElseThrow(() -> new NotFoundException("Пользователь с firstUser " + secondId + " не найден"));
 
         if (firstUser == secondUser) {
             log.warn("Пользователь 1 и пользователь 2 совпадают: firstUser{}, secondUser{}", firstUser, secondUser);
             throw new ValidationException("Пользователь 1 и 2 совпадают");
         }
 
-        Set<Long> friendsOfFirst = inMemoryUserStorage.getFriendsInfoMap().getOrDefault(firstUser, new HashSet<>());
-        Set<Long> friendsOfSecond = inMemoryUserStorage.getFriendsInfoMap().getOrDefault(secondUser,
-                new HashSet<>());
         ArrayList<User> mutualFriends = new ArrayList<>();
 
-        for (Long friendId : friendsOfFirst) {
-            if (friendsOfSecond.contains(friendId)) {
-                User user = inMemoryUserStorage.getUserMap().get(friendId);
-                mutualFriends.add(user);
+        for (Long friendId : firstUser.getFriends()) {
+            if (secondUser.getFriends().contains(friendId)) {
+                userStorage.getUserById(friendId)
+                        .ifPresent(mutualFriends::add);
             }
         }
         log.info("return mutualFriends list");

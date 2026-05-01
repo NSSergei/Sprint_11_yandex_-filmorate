@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
+
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.io.IOException;
 import java.net.URI;
@@ -25,13 +27,12 @@ public class UserControllerTest {
     HttpClient client;
 
     @Autowired
-    private InMemoryUserStorage inMemoryUserStorage;
+    private UserStorage userStorage ;
 
     @BeforeEach
     void setUp() {
         client = HttpClient.newHttpClient();
-        inMemoryUserStorage.getUserMap().clear();
-        inMemoryUserStorage.getFriendsInfoMap().clear();
+        userStorage.userMapClear();
     }
 
     @Test

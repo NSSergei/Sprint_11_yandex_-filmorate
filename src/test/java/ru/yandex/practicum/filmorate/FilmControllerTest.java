@@ -12,8 +12,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import org.junit.jupiter.api.BeforeEach;
-import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
-import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
+
+import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,17 +28,16 @@ public class FilmControllerTest {
     HttpClient client;
 
     @Autowired
-    private InMemoryFilmStorage inMemoryFilmStorage;
+    private FilmStorage filmStorage;
 
     @Autowired
-    private InMemoryUserStorage inMemoryUserStorage;
+    private UserStorage userStorage;
 
     @BeforeEach
     void setUp() {
         client = HttpClient.newHttpClient();
-        inMemoryFilmStorage.getFilmMap().clear();
-        inMemoryFilmStorage.getFilmsLikeInfoMap().clear();
-        inMemoryUserStorage.getUserMap().clear();
+        filmStorage.filmMapClear();
+        userStorage.userMapClear();
     }
 
     @Test
@@ -348,7 +348,7 @@ public class FilmControllerTest {
                 .DELETE()
                 .build();
         HttpResponse<String> deleteResponse = client.send(deleteRequest, HttpResponse.BodyHandlers.ofString());
-        assertEquals(400, deleteResponse.statusCode());
+        assertEquals(404, deleteResponse.statusCode());
     }
 
     @Test
