@@ -26,7 +26,7 @@ public class UserControllerTest {
     HttpClient client;
 
     @Autowired
-    private UserStorage userStorage ;
+    private UserStorage userStorage;
 
     @BeforeEach
     void setUp() {
