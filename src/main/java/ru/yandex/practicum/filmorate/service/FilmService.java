@@ -23,7 +23,6 @@ public class FilmService {
     private final FilmStorage filmStorage;
     private final UserStorage userStorage;
     private static final LocalDate FIRST_FILM = LocalDate.of(1895,12,28);
-    private MpaRating mpaRating;
     private final FilmDbStorage filmDbStorage;
 
     public  FilmService(@Qualifier("filmDateBaseRepository") FilmDbStorage filmStorage, @Qualifier(
@@ -142,10 +141,6 @@ public class FilmService {
 
     public MpaRating getMpaById(long id) {
         return MpaRating.fromId(id);
-    }
-
-    public Collection<Film> getFilmsByGenreId(Long id ) {
-        return filmDbStorage.getFilmsByGenreId(id);
     }
 
     private boolean isBefore(LocalDate first, LocalDate second) {
