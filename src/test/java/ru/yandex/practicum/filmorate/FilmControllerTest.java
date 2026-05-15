@@ -14,6 +14,7 @@ import java.net.http.HttpResponse;
 
 import org.junit.jupiter.api.BeforeEach;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
@@ -28,19 +29,22 @@ public class FilmControllerTest {
 
     HttpClient client;
 
+    @Qualifier("inMemoryFilmStorage")
     @Autowired
-    @Qualifier("filmDateBaseRepository")
     private FilmStorage filmStorage;
 
+    @Qualifier("inMemoryUserStorage")
     @Autowired
-    @Qualifier("userDateBaseRepository")
     private UserStorage userStorage;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @BeforeEach
     void setUp() {
         client = HttpClient.newHttpClient();
-        filmStorage.filmMapClear();
-        userStorage.userMapClear();
+        filmStorage.clear();
+        userStorage.clear();
     }
 
     @Test

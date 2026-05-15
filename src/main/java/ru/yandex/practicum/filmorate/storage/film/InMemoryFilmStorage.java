@@ -2,10 +2,12 @@ package ru.yandex.practicum.filmorate.storage.film;
 
 import org.springframework.stereotype.Component;
 
+import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.*;
 
+@Repository("inMemoryFilmStorage")
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Long, Film> filmMap = new HashMap<>();
