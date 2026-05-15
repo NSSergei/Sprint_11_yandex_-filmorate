@@ -1,12 +1,12 @@
 package ru.yandex.practicum.filmorate.dao.film;
 
-import ru.yandex.practicum.filmorate.model.Film;
-
-import org.springframework.jdbc.core.RowMapper;
-import ru.yandex.practicum.filmorate.model.enums.MpaRating;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.enums.MpaRating;
 
 public class FilmRowMapper implements RowMapper<Film> {
 
