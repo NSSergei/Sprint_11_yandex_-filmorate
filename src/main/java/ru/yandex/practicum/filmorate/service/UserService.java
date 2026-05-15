@@ -1,12 +1,15 @@
 package ru.yandex.practicum.filmorate.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import ru.yandex.practicum.filmorate.dto.UserCreateRequest;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 
+import ru.yandex.practicum.filmorate.dao.user.UserDbStorage;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.time.LocalDate;
@@ -18,9 +21,11 @@ import java.util.Collection;
 @Service
 public class UserService {
     private final UserStorage userStorage;
+    private final UserDbStorage userDbStorage;
 
-    public UserService(UserStorage userStorage) {
+    public UserService(@Qualifier("userDateBaseRepository") UserDbStorage userStorage) {
         this.userStorage = userStorage;
+        this.userDbStorage = userStorage;
     }
 
     public User addUser(User user) {
@@ -44,17 +49,19 @@ public class UserService {
             throw  new ValidationException("Дата рождения не может быть в будущем");
         }
 
-        log.info("User added with id {} and login {}",user.getId(), user.getLogin());
+        User result =  userDbStorage.addUser(user);
 
-        userStorage.addUser(user);
-        return user;
+        log.info("User added with id {} and login {}",result.getId(), result.getLogin());
+
+        return result;
     }
 
     public void deleteUser(long id) {
         if (userStorage.getUserById(id).isEmpty()) {
             throw new NotFoundException("Пользователь с id " + id + " не найден");
         }
-        userStorage.deleteUser(id);
+
+        userDbStorage.deleteUser(id);
     }
 
     public User changeUserInfo(User user) {
@@ -86,6 +93,11 @@ public class UserService {
         return userStorage.getUsers();
     }
 
+    public User getUserById(long id) {
+        return userStorage.getUserById(id)
+                .orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден"));
+    }
+
     public void addFriend(long userId, long friendId) {
         log.info("Request to add new Friend. User id {}, Friend id: {}", userId, friendId);
         if (userId == friendId) {
@@ -101,11 +113,7 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Пользователь с friendId " + friendId + " не найден"));
 
         log.info("Add new friend,for userId id {}, add newFriendId id{}", userId, friendId);
-        user.getFriends().add(friendId);
-
-        log.info("Add new friend,for friendId id {}, add userId id{}", friendId, userId);
-        friend.getFriends().add(userId);
-
+        userDbStorage.addFriend(userId, friendId);
     }
 
     public void deleteFriend(long userId, long friendId) {
@@ -121,10 +129,7 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Пользователь с friendId " + friendId + " не найден"));
 
         log.info("Delete friend, userId id{}, add friendId id{}", userId, friendId);
-        user.getFriends().remove(friendId);
-
-        log.info("Delete friend, friendId id{}, add userId id{}", friendId, userId);
-        friend.getFriends().remove(userId);
+        userDbStorage.deleteFriend(userId, friendId);
     }
 
     public Collection<User> getAllFriends(long id) {
@@ -136,13 +141,7 @@ public class UserService {
         ArrayList<User> allFriends = new ArrayList<>();
 
         log.info("Start iteration.");
-        for (Long friend : user.getFriends()) {
-            userStorage.getUserById(friend)
-                    .ifPresent(allFriends::add);
-        }
-
-        log.info("return friends List");
-        return  allFriends;
+        return userDbStorage.getAllFriends(id);
     }
 
     public Collection<User> checkMutualFriends(long firstId, long secondId) {
@@ -158,15 +157,7 @@ public class UserService {
             throw new ValidationException("Пользователь 1 и 2 совпадают");
         }
 
-        ArrayList<User> mutualFriends = new ArrayList<>();
-
-        for (Long friendId : firstUser.getFriends()) {
-            if (secondUser.getFriends().contains(friendId)) {
-                userStorage.getUserById(friendId)
-                        .ifPresent(mutualFriends::add);
-            }
-        }
         log.info("return mutualFriends list");
-        return mutualFriends;
+        return userDbStorage.checkMutualFriends(firstId, secondId);
     }
 }

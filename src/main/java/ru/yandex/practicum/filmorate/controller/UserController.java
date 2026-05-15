@@ -3,6 +3,9 @@ package ru.yandex.practicum.filmorate.controller;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import ru.yandex.practicum.filmorate.dto.UserCreateRequest;
 import ru.yandex.practicum.filmorate.model.User;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.service.UserService;
@@ -20,9 +23,9 @@ public class UserController {
     }
 
     @PostMapping
-    public User addUsers(@Valid @RequestBody User user) {
+    public ResponseEntity<User> addUsers(@RequestBody User user) {
         log.info("Incoming user: {}", user);
-        return userService.addUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(user));
     }
 
     @DeleteMapping("/{id}")
@@ -38,6 +41,11 @@ public class UserController {
     @GetMapping
     public Collection<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable long id) {
+        return userService.getUserById(id);
     }
 
     @PutMapping("/{id}/friends/{friendId}")

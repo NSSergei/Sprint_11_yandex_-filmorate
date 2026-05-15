@@ -39,6 +39,11 @@ public class FilmController {
         return filmService.getFilms();
     }
 
+    @GetMapping("/{id}")
+    public Film getFilmById(@PathVariable long id) {
+        return filmService.getFilmById(id);
+    }
+
     @DeleteMapping("/{id}/like/{userId}")
     public void deleteLike(@PathVariable long id,
                            @PathVariable long userId) {
@@ -52,7 +57,7 @@ public class FilmController {
     }
 
     @GetMapping("/popular")
-    public Collection<Film> getTopFilmsList(@RequestParam long count) {
+    public Collection<Film> getTopFilmsList(@RequestParam(defaultValue = "10") long count) {
         return filmService.getTopFilmsList(count);
     }
 }

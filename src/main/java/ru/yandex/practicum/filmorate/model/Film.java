@@ -1,14 +1,15 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+
 import lombok.Data;
 import lombok.ToString;
 
+import ru.yandex.practicum.filmorate.model.enums.Genre;
+import ru.yandex.practicum.filmorate.model.enums.MpaRating;
+
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
@@ -24,6 +25,7 @@ public class Film {
     LocalDate releaseDate;
     @Positive(message = "Продолжительность должна быть положительным числом")
     int duration;
-    private Set<Long> likes = new HashSet<>();
+    @NotNull(message = "MPA рейтинг обязателен")
+    private MpaRating mpa;
+    private Set<Genre> genres = new LinkedHashSet<>();
 }
-
