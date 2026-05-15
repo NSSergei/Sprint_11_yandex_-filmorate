@@ -6,8 +6,9 @@ import java.time.LocalDate;
 
 @Data
 public class UserCreateRequest {
-        String login;
-        String name;
-        String email;
-        LocalDate birthday;
+
+        private String login;
+        private String name;
+        private String email;
+        private LocalDate birthday;
 }
