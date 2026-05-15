@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
@@ -28,9 +29,11 @@ public class FilmControllerTest {
     HttpClient client;
 
     @Autowired
+    @Qualifier("filmDateBaseRepository")
     private FilmStorage filmStorage;
 
     @Autowired
+    @Qualifier("userDateBaseRepository")
     private UserStorage userStorage;
 
     @BeforeEach
