@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS films (
      description VARCHAR(200),
      release_date DATE,
      duration INTEGER NOT NULL,
-     mpa_id BIGINT NOT NULL
+     mpa_id BIGINT
 );
 
 CREATE TABLE IF NOT EXISTS friendsLike (
